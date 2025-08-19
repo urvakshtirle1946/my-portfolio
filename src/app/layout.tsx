@@ -4,7 +4,7 @@ import { ThemeProvider } from './context/theme-context'
 import { SmoothScrollProvider } from './components/smooth-scroll-provider'
 
 export const metadata: Metadata = {
-  title: 'Urvaksh Tirle - Full Stack Developer Portfolio',
+  title: 'Urvaksh Tirle',
   description: 'Professional portfolio showcasing full stack development projects, skills, and experience.',
   keywords: 'full stack developer, web developer, React, Node.js, TypeScript, portfolio',
   icons: {
