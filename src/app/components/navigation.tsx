@@ -229,6 +229,7 @@ export function Navigation({ items }: NavigationProps) {
                     src="/generated-image.png"
                     alt="Urvaksh Tirle"
                     fill
+                    sizes="40px"
                     className="object-cover"
                     priority
                   />
