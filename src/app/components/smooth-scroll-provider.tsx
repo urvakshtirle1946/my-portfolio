@@ -1,54 +1,46 @@
-"use client"
+'use client'
 
-import React, { createContext, useContext, useEffect, useRef } from "react"
-import Lenis from "lenis"
-
-interface SmoothScrollContextValue {
-  lenis: Lenis | null
-}
-
-const SmoothScrollContext = createContext<SmoothScrollContextValue>({
-  lenis: null,
-})
-
-export const useSmoothScroll = () => useContext(SmoothScrollContext)
+import { useEffect, useRef } from 'react'
+import Lenis from 'lenis'
 
 interface SmoothScrollProviderProps {
   children: React.ReactNode
 }
 
-export const SmoothScrollProvider: React.FC<SmoothScrollProviderProps> = ({ children }) => {
+export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
   const lenisRef = useRef<Lenis | null>(null)
-  const rafRef = useRef<number | null>(null)
 
   useEffect(() => {
-    if (!lenisRef.current) {
-      lenisRef.current = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smooth: true,
-        smoothTouch: false,
-        wheelMultiplier: 1,
-      })
+    // Initialize Lenis
+    lenisRef.current = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
+      smooth: true,
+      smoothTouch: false,
+      wheelMultiplier: 1,
+    })
+
+    // Expose Lenis instance globally for other components to use
+    if (typeof window !== 'undefined') {
+      (window as Window & { lenis?: Lenis }).lenis = lenisRef.current
     }
 
-    const raf = (time: number) => {
+    // RAF loop
+    function raf(time: number) {
       lenisRef.current?.raf(time)
-      rafRef.current = requestAnimationFrame(raf)
+      requestAnimationFrame(raf)
     }
+    requestAnimationFrame(raf)
 
-    rafRef.current = requestAnimationFrame(raf)
-
+    // Cleanup
     return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current)
       lenisRef.current?.destroy()
-      lenisRef.current = null
+      // Clean up global reference
+      if (typeof window !== 'undefined') {
+        delete (window as Window & { lenis?: Lenis }).lenis
+      }
     }
   }, [])
 
-  return (
-    <SmoothScrollContext.Provider value={{ lenis: lenisRef.current }}>
-      {children}
-    </SmoothScrollContext.Provider>
-  )
+  return <>{children}</>
 }
