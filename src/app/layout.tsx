@@ -7,6 +7,27 @@ export const metadata: Metadata = {
   title: 'Urvaksh Tirle - Full Stack Developer Portfolio',
   description: 'Professional portfolio showcasing full stack development projects, skills, and experience.',
   keywords: 'full stack developer, web developer, React, Node.js, TypeScript, portfolio',
+  icons: {
+    icon: [
+      {
+        url: '/favicon.png',
+        sizes: '32x32',
+        type: 'image/png',
+      },
+      {
+        url: '/generated-image.png',
+        sizes: '192x192',
+        type: 'image/png',
+      },
+    ],
+    apple: [
+      {
+        url: '/generated-image.png',
+        sizes: '180x180',
+        type: 'image/png',
+      },
+    ],
+  },
 }
 
 export const viewport: Viewport = {
