@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 const About = () => {
@@ -64,10 +65,12 @@ const About = () => {
                 }}
               >
                 {/* Profile image */}
-                <img
+                <Image
                   src="/generated-image.png"
                   alt="Profile"
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  priority
                 />
               </div>
               

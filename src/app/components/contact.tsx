@@ -14,27 +14,7 @@ const Contact = () => {
     mobileRootMargin: '0px 0px -30px 0px'
   })
 
-  const contactInfo = [
-    {
-      icon: "📧",
-      title: "Email",
-      value: "urvakshtirle@gmail.com",
-      link: "mailto:urvakshtirle@gmail.com"
-    },
-    
-    {
-      icon: "📍",
-      title: "Location",
-      value: "Indore, Madhya Pradesh, India",
-      link: "https://maps.app.goo.gl/wakb8D2ckuZJ5rtw8"
-    },
-    {
-      icon: "💼",
-      title: "LinkedIn",
-      value: "linkedin.com/in/urvaksh-tirle",
-      link: "https://www.linkedin.com/in/urvaksh-tirle-772601297/"
-    }
-  ]
+
 
   return (
     <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 sm:pt-24 pb-24 sm:pb-20">

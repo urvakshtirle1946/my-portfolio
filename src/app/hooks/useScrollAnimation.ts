@@ -8,7 +8,6 @@ interface UseScrollAnimationOptions {
   triggerOnce?: boolean
   rootMargin?: string
   parallax?: boolean
-  speed?: number
   mobileThreshold?: number
   mobileRootMargin?: string
 }
@@ -19,7 +18,6 @@ export function useScrollAnimation(options: UseScrollAnimationOptions = {}) {
     triggerOnce = false, // Changed to false to allow re-triggering
     rootMargin = '0px 0px -50px 0px',
     parallax = false,
-    speed = 0.5,
     mobileThreshold = 0.05,
     mobileRootMargin = '0px 0px -30px 0px'
   } = options

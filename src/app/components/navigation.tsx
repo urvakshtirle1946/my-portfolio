@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
+import Image from "next/image"
 import { LucideIcon, Moon, Sun } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useTheme } from "@/app/context/theme-context"
@@ -16,10 +17,9 @@ interface NavItem {
 
 interface NavigationProps {
   items: NavItem[]
-  className?: string
 }
 
-export function Navigation({ items, className }: NavigationProps) {
+export function Navigation({ items }: NavigationProps) {
   const [activeTab, setActiveTab] = useState(items[0]?.name || 'Home')
   const { theme, toggleTheme } = useTheme()
   const isManualClick = useRef(false)
@@ -151,11 +151,11 @@ export function Navigation({ items, className }: NavigationProps) {
   return (
     <>
       {/* Mobile Navigation - Bottom Fixed */}
-      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-50 p-2 pb-4">
-        <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg overflow-hidden">
-          <div className="flex items-center p-3">
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-50 p-1">
+        <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg overflow-hidden">
+          <div className="flex items-center p-1">
             {/* Navigation Items */}
-            <div className="flex items-center justify-around gap-2 flex-1 min-w-0">
+            <div className="flex items-center justify-around flex-1 gap-1">
               {items.map((item) => {
                 const Icon = item.icon
                 const isActive = activeTab === item.name
@@ -165,17 +165,17 @@ export function Navigation({ items, className }: NavigationProps) {
                     key={item.name}
                     onClick={() => handleNavClick(item.name, item.url)}
                     className={cn(
-                      "relative flex flex-col items-center justify-center p-2.5 rounded-lg transition-all duration-150 min-w-0 flex-1",
-                      "text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white active:scale-95",
+                      "relative flex flex-col items-center justify-center p-1 rounded-md transition-all duration-150 min-w-0 flex-1",
+                      "text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white",
                       isActive && "text-black dark:text-white bg-gray-100 dark:bg-gray-700",
                     )}
                   >
-                    <Icon size={20} strokeWidth={2.5} className="mb-1.5" />
-                    <span className="text-[11px] font-medium truncate leading-tight">{item.name}</span>
+                    <Icon size={16} strokeWidth={2.5} className="mb-0.5" />
+                    <span className="text-[9px] font-medium truncate">{item.name}</span>
                     {isActive && (
                       <motion.div
                         layoutId="mobile-tubelight"
-                        className="absolute inset-0 bg-blue-500/10 dark:bg-blue-400/10 rounded-lg -z-10"
+                        className="absolute inset-0 bg-blue-500/10 dark:bg-blue-400/10 rounded-md -z-10"
                         initial={false}
                         transition={{
                           type: "tween",
@@ -184,8 +184,8 @@ export function Navigation({ items, className }: NavigationProps) {
                         }}
                       >
                         {/* Mobile Tubelight Effect */}
-                        <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-8 h-1 bg-blue-500 dark:bg-blue-400 rounded-t-full shadow-md pointer-events-none">
-                          <div className="absolute w-8 h-2 bg-blue-500/30 dark:bg-blue-400/30 rounded-full blur-sm -top-0.5 -left-0.5" />
+                        <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-6 h-1 bg-blue-500 dark:bg-blue-400 rounded-t-full shadow-md pointer-events-none">
+                          <div className="absolute w-6 h-2 bg-blue-500/30 dark:bg-blue-400/30 rounded-full blur-sm -top-0.5 -left-0.5" />
                         </div>
                       </motion.div>
                     )}
@@ -195,19 +195,19 @@ export function Navigation({ items, className }: NavigationProps) {
             </div>
             
             {/* Right side buttons for mobile */}
-            <div className="flex items-center ml-2 flex-shrink-0">
+            <div className="flex items-center space-x-1.5">
               {/* Theme Toggle for Mobile */}
               <button
                 onClick={handleThemeToggle}
-                className="flex flex-col items-center justify-center p-2.5 rounded-lg bg-black dark:bg-white text-white dark:text-black font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg active:scale-95"
+                className="flex flex-col items-center justify-center p-1.5 rounded-md bg-black dark:bg-white text-white dark:text-black font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg"
                 aria-label="Toggle theme"
               >
                 {theme === 'light' ? (
-                  <Moon className="h-4 w-4 mb-1" />
+                  <Moon className="h-3.5 w-3.5 mb-0.5" />
                 ) : (
-                  <Sun className="h-4 w-4 mb-1" />
+                  <Sun className="h-3.5 w-3.5 mb-0.5" />
                 )}
-                <span className="text-[8px] font-bold">THEME</span>
+                <span className="text-[7px] font-bold">THEME</span>
               </button>
             </div>
           </div>
@@ -219,32 +219,34 @@ export function Navigation({ items, className }: NavigationProps) {
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border border-gray-200 dark:border-gray-700 rounded-full shadow-xl overflow-hidden">
             <div className="flex items-center justify-between p-3">
-              {/* Avatar */}
-              <div className="flex items-center pr-2 sm:pr-3 border-r border-gray-200 dark:border-gray-600 flex-shrink-0">
+              {/* Avatar - Left Corner */}
+              <div className="flex items-center pr-3 border-r border-gray-200 dark:border-gray-600 flex-shrink-0">
                 <button
                   onClick={() => handleNavClick('Home', '#home')}
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden border-2 border-black dark:border-white shadow-lg hover:scale-110 transition-transform duration-200"
+                  className="w-10 h-10 rounded-full overflow-hidden border-2 border-black dark:border-white shadow-lg hover:scale-110 transition-transform duration-200 relative flex-shrink-0"
                 >
-                <img
-                  src="/generated-image.png"
-                  alt="Urvaksh Tirle"
-                  className="w-full h-full object-cover"
-                />
+                  <Image
+                    src="/generated-image.png"
+                    alt="Urvaksh Tirle"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
                 </button>
               </div>
 
-              {/* Navigation Items */}
-              <div className="flex items-center gap-0 justify-center px-1 flex-shrink-0">
+              {/* Navigation Items - Center */}
+              <div className="flex items-center gap-2 justify-center flex-1 px-4 min-w-0">
                 {items.map((item) => {
                   const Icon = item.icon
                   const isActive = activeTab === item.name
 
                   return (
                     <Link
-                  key={item.name}
+                      key={item.name}
                       href={item.url}
-                  onClick={(e) => {
-                    e.preventDefault()
+                      onClick={(e) => {
+                        e.preventDefault()
                         handleNavClick(item.name, item.url)
                       }}
                       className={cn(
@@ -253,7 +255,7 @@ export function Navigation({ items, className }: NavigationProps) {
                         isActive && "bg-gray-200 dark:bg-gray-600 text-black dark:text-white shadow-md",
                       )}
                     >
-                      <span className="flex items-center gap-0.5">
+                      <span className="flex items-center gap-1">
                         <Icon size={14} strokeWidth={2.5} />
                         <span>{item.name}</span>
                       </span>
@@ -268,7 +270,7 @@ export function Navigation({ items, className }: NavigationProps) {
                             ease: "easeOut"
                           }}
                         >
-                                                    {/* Desktop Tubelight Effect */}
+                          {/* Desktop Tubelight Effect */}
                           <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-blue-500 dark:bg-blue-400 rounded-t-full shadow-md pointer-events-none">
                             <div className="absolute w-6 h-2 bg-blue-500/30 dark:bg-blue-400/30 rounded-full blur-sm -top-0.5 -left-0.5" />
                           </div>
@@ -277,10 +279,10 @@ export function Navigation({ items, className }: NavigationProps) {
                     </Link>
                   )
                 })}
-          </div>
+              </div>
 
-              {/* Right side buttons container */}
-              <div className="flex items-center space-x-1.5 pl-2 border-l border-gray-200 dark:border-gray-600 flex-shrink-0">
+              {/* Buttons - Right */}
+              <div className="flex items-center space-x-2 flex-shrink-0">
                 {/* Book Meeting Button */}
                 <a
                   href="https://cal.com/urvaksh-tirle-alfxdi/30min"
@@ -304,10 +306,10 @@ export function Navigation({ items, className }: NavigationProps) {
                   )}
                 </button>
               </div>
-        </div>
-      </div>
             </div>
           </div>
+        </div>
+      </div>
     </>
   )
 }
