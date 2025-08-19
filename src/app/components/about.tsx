@@ -69,6 +69,7 @@ const About = () => {
                   src="/generated-image.png"
                   alt="Profile"
                   fill
+                  sizes="(max-width: 768px) 320px, 320px"
                   className="object-cover"
                   priority
                 />
